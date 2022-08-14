@@ -1,0 +1,15 @@
+---
+- name: Issue show commands
+  hosts: routers,switches
+  gather_facts: true
+  connection: local
+  tasks:
+    - name: Show ip int brief
+      ios_command:
+        commands:
+          - show ip int brief
+      register: if_data
+
+    - name: Interfaces output
+      debug:
+        var: if_data['stdout_lines'][0]
