@@ -19,7 +19,7 @@
     - name: Show logging host
       ios_command:
         commands:
-          - show run | include logging host
+          - show run | include logging
       register: if_data
 
     - name: Interfaces output
