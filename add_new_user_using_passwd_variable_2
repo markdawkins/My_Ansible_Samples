@@ -1,0 +1,15 @@
+---
+- name: add new admin  users    
+  hosts: routers , switches  <--EXAMPLE OF INVENTTORY GROUP 
+  connection: local
+  tasks:
+    - name: Add new admin user 
+      ios_user:
+        configured_password: "{{ global_pass }}"  <--variable stored in group_vars folder  
+        name: username_goes_here
+        state: present
+        privilege: 15
+
+    - name: Save running-config
+      ios_config:
+        save_when: modified
