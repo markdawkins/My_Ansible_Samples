@@ -1,0 +1,12 @@
+---
+- name: add new admin  users    
+  hosts: routers,switches
+  connection: local
+  tasks:
+    - name: Add new admin  user 
+      ios_user:
+        configured_password: 'password_goes_here'
+        name: admin_username_goes_here
+        #purge: true   <(use purge command if you want to delete old 'cisco' user
+        state: present
+        privilege: 15
