@@ -1,0 +1,15 @@
+---
+- name: Issue show commands to find radius server
+  hosts: switches
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Show  run inc radius server IP and client
+      ios_command:
+        commands:
+          - show run | inc  client x.x.x.x | ipv4 x.x.x.x
+      register: if_data
+
+    - name: Interfaces output
+      debug:
+        var: if_data['stdout_lines'][0]
