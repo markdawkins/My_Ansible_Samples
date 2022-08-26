@@ -1,14 +1,13 @@
+
 ---
 - name: Remove Radius Server 
   hosts: routers,switches
-  gather_facts: true
+  gather_facts: false
   connection: local
   tasks:
-    - name:remove server key and radius server
+    - name: remove radius server from config 
       ios_config:
-          lines:
-           - no client x.x.x.x server-key 
-           - no radius-server SERVER_NAME_GOES_HERE
+          lines: no radius server test123
            
            
     
