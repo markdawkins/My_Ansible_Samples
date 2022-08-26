@@ -1,13 +1,13 @@
 ---
 - name: Issue show commands to find radius server
-  hosts: switches
+  hosts: routers,switches
   gather_facts: false
   connection: local
   tasks:
     - name: Show  run inc radius server IP and client
       ios_command:
         commands:
-          - show run | inc  client x.x.x.x | radius server test1234
+          - show run | inc  client 1.1.1.1|radius server test123
       register: if_data
 
     - name: Interfaces output
