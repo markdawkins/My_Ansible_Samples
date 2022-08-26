@@ -1,0 +1,38 @@
+---
+- name: Remove Radius Server 
+  hosts: routers,switches
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: remove radius server from config 
+      ios_config:
+          lines: no radius server test123
+            
+    - name: configure ip helpers on multiple interfaces
+            cisco.ios.ios_config:
+              lines:
+            - ip helper-address 172.26.1.10
+            - ip helper-address 172.26.3.8
+            parents: '{{ item }}'
+          with_items:
+          - interface Ethernet1
+          - interface Ethernet2
+          - interface GigabitEthernet1
+
+
+    - name: load new acl into device
+      cisco.ios.ios_config:
+        lines:
+        - 10 permit ip host 192.0.2.1 any log
+        - 20 permit ip host 192.0.2.2 any log
+        - 30 permit ip host 192.0.2.3 any log
+        - 40 permit ip host 192.0.2.4 any log
+        - 50 permit ip host 192.0.2.5 any log
+        parents: ip access-list extended test
+        before: no ip access-list extended test
+        match: exact  
+    
+
+    - name: save running to startup when modified
+      ios_config:
+        save_when: modified
