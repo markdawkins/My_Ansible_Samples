@@ -7,7 +7,7 @@
     - name: Show  run inc radius server IP and client
       ios_command:
         commands:
-          - show run | inc  client x.x.x.x | ipv4 x.x.x.x
+          - show run | inc  client x.x.x.x | radius server test1234
       register: if_data
 
     - name: Interfaces output
