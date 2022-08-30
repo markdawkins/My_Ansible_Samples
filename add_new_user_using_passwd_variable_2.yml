@@ -10,6 +10,6 @@
         state: present
         privilege: 15
 
-    - name: Save running-config
+    - name: Save running-config to startup cfg
       ios_config:
         save_when: modified
