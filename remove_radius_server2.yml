@@ -12,7 +12,7 @@
       ios_config:
         lines: no client 1.1.1.1 server-key 
         parents: aaa server radius dynamic-author
-        match: exact  
+        
     
 
     - name: save running to startup when modified
