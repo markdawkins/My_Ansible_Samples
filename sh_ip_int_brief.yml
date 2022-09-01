@@ -1,6 +1,6 @@
 ---
 - name: Issue show commands
-  hosts: routers,switches
+  hosts: switches
   gather_facts: true
   connection: local
   tasks:
