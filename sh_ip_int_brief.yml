@@ -1,6 +1,6 @@
 ---
 - name: Issue show commands
-  hosts: switches
+  hosts: all
   gather_facts: true
   connection: local
   tasks:
