@@ -1,6 +1,6 @@
 ---
 - name: Change admin users    
-  hosts: routers,switches
+  hosts: all
   connection: local
   tasks:
     - name: Remove users and configure Admin 
