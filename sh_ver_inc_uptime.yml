@@ -7,7 +7,7 @@
     - name: Show ver inc uptime 
       ios_command:
         commands:
-          - show ver | inc uptime
+          - show ver | inc uptime |reload reason
       register: if_data
 
     - name: Interfaces output
