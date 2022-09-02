@@ -1,6 +1,6 @@
 ---
 - name: Remove Radius Server 
-  hosts: routers,switches
+  hosts: all
   gather_facts: false
   connection: local
   tasks:
