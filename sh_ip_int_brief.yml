@@ -6,8 +6,9 @@
   tasks:
     - name: Show ip int brief
       ios_command:
-        commands:
-          - show ip int brief
+        commands: show ip int brief
+      vars:
+        ansible_command_timeout: 60
       register: if_data
 
     - name: Interfaces output
