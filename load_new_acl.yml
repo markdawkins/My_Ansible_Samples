@@ -1,11 +1,11 @@
 ---
 - name: Deploy new ACL 
   hosts: all
-  gather_facts: true
+  gather_facts: false
   connection: local
   tasks:
     - name: load new acl into device
-      cisco.ios.ios_config:
+      ios_config:
         lines:
         - 10 permit ip host 192.0.2.1 any log
         - 20 permit ip host 192.0.2.2 any log
