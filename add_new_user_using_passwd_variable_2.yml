@@ -1,7 +1,7 @@
 ---
 - name: add new admin  users    
   hosts: all
-  connection: network_cli
+  connection: local
   tasks:
     - name: Add new admin user 
       ios_user:
