@@ -1,7 +1,7 @@
 ---
 - name: send configuration commands to IOS
   ansible.netcommon.telnet:
-    user: admin
+    user: ansible
     password: go
     login_prompt: 'Username: '
     prompts:
@@ -13,7 +13,7 @@
 
 - name: run show commands
   ansible.netcommon.telnet:
-    user: admin
+    user: ansible 
     password: go
     login_prompt: 'Username: '
     prompts:
