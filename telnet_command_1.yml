@@ -1,5 +1,5 @@
 ---
-- name: send configuration commands to IOS
+- name: Send configuration commands to IOS
   ansible.netcommon.telnet:
     user: ansible
     password: go
@@ -11,7 +11,7 @@
     - configure terminal
     - hostname ios01
 
-- name: run show commands
+- name: Run show commands
   ansible.netcommon.telnet:
     user: ansible 
     password: go
