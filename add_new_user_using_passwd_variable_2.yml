@@ -1,6 +1,7 @@
 ---
 - name: add new admin  users    
   hosts: all
+  ansible.netcommon.cli_command:
   #connection: local
   tasks:
     - name: Add new admin user 
