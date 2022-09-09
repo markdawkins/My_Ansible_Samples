@@ -1,23 +1,29 @@
 ---
-- name: Send configuration commands to IOS
-  ansible.netcommon.telnet:
-    user: ansible
-    password: go
-    login_prompt: 'Username: '
-    prompts:
-    - '[>#]'
-    command:
-    - terminal length 0
-    - configure terminal
-    - hostname ios01
+- name: Configure Telnet Devices
+  hosts: switches
+  gather_facts: no
 
-- name: Run show commands
-  ansible.netcommon.telnet:
-    user: ansible 
-    password: go
-    login_prompt: 'Username: '
-    prompts:
-    - '[>#]'
-    command:
-    - terminal length 0
-    - show version
+  tasks:
+    - name: Send configuration commands to IOS
+      ansible.netcommon.telnet:
+        user: ansible
+        password: go
+        login_prompt: "Username: "
+        prompts:
+          - "[>#]"
+        command:
+          - terminal length 0
+          - configure terminal
+          - hostname ios01
+
+    - name: Run show commands
+      ansible.netcommon.telnet:
+        user: ansible
+        password: go
+        login_prompt: "Username: "
+        prompts:
+          - "[>#]"
+        command:
+          - terminal length 0
+          - show version
+
