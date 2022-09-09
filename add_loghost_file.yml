@@ -1,5 +1,5 @@
 ---
-- name: Add Log Host
+- name: Add log host
   hosts: all
   gather_facts: false
   connection: local
