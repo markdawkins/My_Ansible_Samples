@@ -10,7 +10,7 @@
 
     - name: remove client server and key 
       ios_config:
-        lines: no client 10.200.0.32 server-key 
+        lines: no client 10.100.0.32 server-key 
         parents: aaa server radius dynamic-author
         
     - name: save running to startup when modified
