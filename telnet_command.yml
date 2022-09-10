@@ -1,6 +1,6 @@
 ---
 - name: Configure Telnet Devices
-  hosts: switches
+  hosts: all
   gather_facts: false
 
   tasks:
