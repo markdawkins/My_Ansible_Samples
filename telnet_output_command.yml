@@ -1,0 +1,25 @@
+---
+- name: Configure Telnet Devices
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Run show commands
+      telnet:
+        user: "{{telnet_user}}"
+        password: "{{telnet_pass}}"
+        login_prompt: "Username: "
+        prompts:
+          - "[>#]"
+        command: 
+        - terminal length 0 
+        - show ip int brief
+        #waitfor:
+          #- "result[0] contains Interface"      
+        #vars:
+          #register: if_data
+        
+          
+    #- name: Output
+      #debug:
+        #var: if_data['stdout_lines'][0]
