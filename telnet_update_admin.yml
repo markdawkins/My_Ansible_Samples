@@ -14,4 +14,4 @@
         command:
           - terminal length 0
           - configure terminal
-          - username admin privilege 15 password {{global_pass}}
+          - username admin2 privilege 15 password {{global_pass}}
