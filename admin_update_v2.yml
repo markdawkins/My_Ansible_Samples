@@ -1,0 +1,13 @@
+---
+- name: Admin password update
+  hosts: all
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: update admin passowrd 
+      ios_config:
+          lines: username admin privilege 15 password {{global_pass}}
+
+    - name: save running to startup when modified
+      ios_config:
+        save_when: modified
