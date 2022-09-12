@@ -15,3 +15,5 @@
           - terminal length 0
           - configure terminal
           - username admin privilege 15 secret {{global_pass}}
+          - exit
+          - wr mem
