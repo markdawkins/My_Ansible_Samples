@@ -12,7 +12,7 @@
         ansible_command_timeout: 60
       register: if_data
 
-    - name: Output1
+    - name: Connected Ports 
       debug:
         var: if_data['stdout_lines'][0]
    
@@ -24,7 +24,7 @@
         ansible_command_timeout: 60
       register: if_data2
      
-    - name: Output2
+    - name: Number of connected ports
       debug:
         var: if_data2['stdout_lines'][0] 
       
@@ -38,7 +38,7 @@
         ansible_command_timeout: 60
       register: if_data3
 
-    - name: Output3
+    - name: Mac table and count of macs
       debug:
         var: if_data3['stdout_lines'][0] 
         
@@ -50,7 +50,7 @@
         ansible_command_timeout: 60
       register: if_data4
 
-    - name: Output 4
+    - name: CDP Neitghbors
       debug:
         var: if_data4['stdout_lines'][0] 
       
@@ -62,7 +62,7 @@
         ansible_command_timeout: 60
       register: if_data4
 
-    - name: Output 5
+    - name: IP interfaces
       debug:
         var: if_data4['stdout_lines'][0] 
    
@@ -74,7 +74,7 @@
         ansible_command_timeout: 60
       register: if_data4
 
-    - name: Output 6
+    - name: Device Inventory 
       debug:
         var: if_data4['stdout_lines'][0] 
         
@@ -86,6 +86,6 @@
         ansible_command_timeout: 60
       register: if_data4
 
-    - name: Output 7
+    - name: Log output for  {{Mo}}  {{Date}}
       debug:
         var: if_data4['stdout_lines'][0] 
