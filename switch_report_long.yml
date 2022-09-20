@@ -4,10 +4,9 @@
   gather_facts: false
   connection: local
   tasks:
-    - name: Show int status 
+    - name: Show int status include connected
       ios_command:
         commands: 
-        - show interface summary 
         - show int status | inc connected
       vars:
         ansible_command_timeout: 60
@@ -20,7 +19,6 @@
     - name: show int status | count  connected
       ios_command:
         commands: 
-        - show interface stats
         - show int status | count  connected
       vars:
         ansible_command_timeout: 60
@@ -55,19 +53,7 @@
     - name: Output 4
       debug:
         var: if_data4['stdout_lines'][0] 
-
-    - name: Show cdp nei 
-      ios_command:
-        commands: 
-        - show cdp nei | inc AP|ap'
-      vars:
-        ansible_command_timeout: 60
-      register: if_data4
-
-    - name: Output 4
-      debug:
-        var: if_data4['stdout_lines'][0] 
-    
+      
     - name: Show ip int brie 
       ios_command:
         commands: 
