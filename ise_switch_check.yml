@@ -8,9 +8,18 @@
       ios_command:
         commands:
           - show auth sessions | count mab|dot1x
-          - show run | inc dot1x default group
       register: if_data
 
     - name: Sessions count
+      debug:
+        var: if_data['stdout_lines'][0]
+        
+     - name: Show dot1x group
+       ios_command:
+        commands:
+          - show run | inc dot1x default group
+      register: if_data
+
+    - name: Dot1x group 
       debug:
         var: if_data['stdout_lines'][0]
