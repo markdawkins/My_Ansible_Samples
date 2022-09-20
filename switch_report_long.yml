@@ -50,7 +50,7 @@
         ansible_command_timeout: 60
       register: if_data4
 
-    - name: CDP Neitghbors
+    - name: CDP Neighbors
       debug:
         var: if_data4['stdout_lines'][0] 
       
