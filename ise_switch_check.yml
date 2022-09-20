@@ -18,8 +18,8 @@
       ios_command:
        commands:
          - show run | inc dot1x default group
-     register: if_data
+      register: if_data
 
-   - name: Dot1x group 
-     debug:
-       var: if_data['stdout_lines'][0]
+    - name: Dot1x group 
+      debug:
+        var: if_data['stdout_lines'][0]
