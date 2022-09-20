@@ -8,6 +8,7 @@
       ios_command:
         commands:
           - show auth sessions | count mab|dot1x
+          - show run | inc dot1x default group
       register: if_data
 
     - name: Sessions count
