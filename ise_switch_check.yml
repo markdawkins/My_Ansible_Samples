@@ -1,0 +1,15 @@
+---
+- name: Issue show commands to find switches with ISE config
+  hosts: all
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Show auth sessions
+      ios_command:
+        commands:
+          - show auth sessions | count mab|dot1x
+      register: if_data
+
+    - name: Sessions count
+      debug:
+        var: if_data['stdout_lines'][0]
