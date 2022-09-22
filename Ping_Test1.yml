@@ -6,4 +6,6 @@
   tasks:
     - name: Test reachability to external hosts
       cisco.ios.ios_ping:
-        dest: 8.8.8.8
+        dest: 
+        - 8.8.8.8
+        - 8.8.4.4
