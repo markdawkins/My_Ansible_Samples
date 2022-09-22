@@ -7,7 +7,7 @@
     - name: Update 1st group of ports 
       ios_config:
         lines:
-        - switchport access vlan [data_vlan]
+        - switchport access vlan {{data_vlan}}
         - switchport mode access
         - switchport voice vlan 50
         - device-tracking attach-policy IPDT_POLICY
@@ -15,7 +15,7 @@
         - ipv6 dhcp guard attach-policy ipv6-dhcp-client
         - authentication control-direction in
         - authentication event fail action next-method
-        - authentication event server dead action reinitialize vlan [data_vlan]
+        - authentication event server dead action reinitialize vlan {{data_vlan}}
         - authentication event server dead action authorize voice
         - authentication event server alive action reinitialize
         - authentication host-mode multi-auth
@@ -41,7 +41,7 @@
     - name: Update 2nd  group of ports 
       ios_config:
         lines:
-        - switchport access vlan [data_vlan]
+        - switchport access vlan {{data_vlan}}
         - switchport mode access
         - switchport voice vlan 50
         - device-tracking attach-policy IPDT_POLICY
