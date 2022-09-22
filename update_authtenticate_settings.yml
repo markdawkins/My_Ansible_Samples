@@ -8,14 +8,14 @@
       ios_config:
         lines:
         - authentication timer reauthenticate 1
-        parents: interface range gigabit 1/0/1 - 24       
+        parents: interface range gigabit {{port_range}} 
       
     #- name: Update authentication timer of ports  
     #  ansible.builtin.pause:
     #    minutes: 1 
             
-    - name: Update 2nd  group of ports 
-      ios_config:
-        lines:
-        - authentication timer reauthenticate 1
-        parents: interface range gigabit 1/0/24 - 48
+    #- name: Update 2nd  group of ports 
+    #  ios_config:
+    #   lines:
+    #    - authentication timer reauthenticate 1
+    #    parents: interface range gigabit 1/0/24 - 48
