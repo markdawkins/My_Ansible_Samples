@@ -1,9 +1,12 @@
 ---
-- name: Ping test to google DNS 
+- name: Ping test to and external host
   hosts: all
   gather_facts: no
   connection: local
   tasks:
-    - name: Test reachability to external host
+    - name: Test reachability to google DNS
       cisco.ios.ios_ping:
         dest: 8.8.8.8
+    - name: Test reachability to cisco.com
+      cisco.ios.ios_ping:
+        dest: www.cisco.com
