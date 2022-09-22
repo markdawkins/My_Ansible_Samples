@@ -1,8 +1,8 @@
 ---
 - name: Ping test to a group of external hosts 
   hosts: all
-  gather_facts: false
-  connection: local
+  gather_facts: no
+  connection: ansible.netcommon.network_cli
   tasks:
     - name: Test reachability to external hosts
       cisco.ios.ios_ping:
