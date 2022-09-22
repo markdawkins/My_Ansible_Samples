@@ -4,7 +4,7 @@
   gather_facts: false
   connection: local
   tasks:
-    - name: Update 1st group of ports 
+    - name: Pushing update to selected access ports 
       ios_config:
         lines:
         - authentication timer reauthenticate 1
