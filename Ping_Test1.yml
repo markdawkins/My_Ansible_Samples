@@ -9,4 +9,4 @@
         dest: 8.8.8.8
     - name: Test reachability to cisco.com
       cisco.ios.ios_ping:
-        dest: www.cisco.com
+        dest: 23.11.251.107
