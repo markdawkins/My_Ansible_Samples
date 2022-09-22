@@ -1,5 +1,5 @@
 ---
-- name: Ping test to a group of external hosts 
+- name: Ping test to google DNS 
   hosts: all
   gather_facts: no
   connection: local
