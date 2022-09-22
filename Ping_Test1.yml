@@ -4,8 +4,6 @@
   gather_facts: no
   connection: local
   tasks:
-    - name: Test reachability to external hosts
+    - name: Test reachability to external host
       cisco.ios.ios_ping:
-        dest: 
-        - 8.8.8.8
-        - 8.8.4.4
+        dest: 8.8.8.8
