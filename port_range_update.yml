@@ -1,1 +1,22 @@
 ---
+- name: Update range of ports  
+  hosts: all
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Update 1st group of ports 
+      ios_config:
+        lines:
+        - description port range test
+        - cdp enable
+        - no mop enabled 
+        - no mop sysid 
+        - negotiation auto 
+        parents: interface range gigabit 1/0/1 - 12       
+      
+    - name: Update 2nd  group of ports 
+      ios_config:
+        lines:
+        - description port range test
+        - no shut 
+        parents: interface range gigabit 1/0/17 - 24
