@@ -1,0 +1,19 @@
+---
+- name: Configure Telnet Devices
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Send configuration commands to IOS
+      telnet:
+        user: "{{telnet_user}}"
+        password: "{{telnet_pass}}"
+        login_prompt: "Username: "
+        prompts:
+          - "[>#]"
+        command:
+          - terminal length 0
+          - configure terminal
+          - username admin privilege 15 secret {{global_pass}}
+          - exit
+          - wr mem
