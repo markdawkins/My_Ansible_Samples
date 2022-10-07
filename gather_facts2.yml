@@ -1,0 +1,56 @@
+---
+- name: Test IOS Facts
+  hosts: all
+  connection: local
+  tasks:
+    - name: Gather all legacy facts
+      ios_facts:
+        gather_subset: all
+      register: all_subset
+
+    - name: Print Subset All
+      debug:
+        var: all_subset
+
+    - name: Gather only the config and default facts
+      ios_facts:
+        gather_subset:
+        - config
+      register: config
+
+    - name: Print Config
+      debug:
+        var: config
+
+    - name: Gather only the interfaces resource facts and no legacy facts
+      ios_facts:
+        gather_subset:
+        - '!all'
+        - '!min'
+        gather_network_resources:
+        - interfaces
+      register: interfaces_1
+
+    - name: Print interfaces_1
+      debug:
+        var: interfaces_1
+
+    #- name: Gather L3 interfaces resource and minimal legacy facts
+    #  ios_facts:
+    #    gather_subset: min
+    #    gather_network_resources: l3_interfaces
+    #  register: l3_interfaces
+
+    #- name: Print l3_interfaces
+    #  debug:
+    #    var: l3_interfaces
+
+    - name: Gather L2 interfaces resource and minimal legacy facts
+      ios_facts:
+        gather_subset: min
+        gather_network_resources: l2_interfaces
+      register: l2_interfaces
+
+    - name: Print l2_interfaces
+      debug:
+        var: l2_interfaces
