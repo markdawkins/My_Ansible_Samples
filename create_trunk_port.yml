@@ -1,0 +1,10 @@
+---
+- name: Delete trunk port interfaces on Cisco switch
+  hosts: cisco_switch
+  gather_facts: false
+  tasks:
+  - name: Delete trunk port interfaces
+    cisco.ios.ios_interface:
+      config_command: "no switchport trunk"
+      name: "{{ item }}"
+    with_items: "{{ trunk_port_interfaces }}"
