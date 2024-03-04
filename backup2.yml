@@ -1,0 +1,12 @@
+---
+- name: Backup csrvr  devices
+  hosts: csrvrs
+
+  tasks:
+   - name:  Backup CSRVR Devices
+     ios_config:
+       backup: true
+       backup_options:
+         filename: "{{inventory_hostname}}-backup.txt"      
+         dir_path: ./BACKUPS  
+
