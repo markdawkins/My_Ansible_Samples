@@ -2,3 +2,20 @@
 SSH Article on using ssh1 to connect . How to change your client 
 URl 
 https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbW9aYUZFTE5CXzNOZEVraHhKNU5XT3Y5eEluZ3xBQ3Jtc0tuMGdDVExuTk1tT2F6ekZhV3cwMnNMa3VFWGprODFUaDROUnFjZ05jQ2N4WFB4RUZ3RG5ra2I2dDMwb0xwT3pjLTAzdWZ4aUdCeGNiVXNqeGFEVU0xV1hEXzNQcW9BUnhaZjFNV2E0Z0w3MnFhY3YxNA&q=https%3A%2F%2Fgulian.uk%2Fssh-issue-unable-to-login-into-a-cisco-router%2F&v=Kp_Xij_cQag
+
+
+---
+- name: Issue show commands
+  hosts: csvrs
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Show ip int brief
+      ios_command:
+        commands:
+          - show ip int brief
+      register: if_data
+
+    - name: Interfaces output
+      debug:
+        var: if_data['stdout_lines'][0]
