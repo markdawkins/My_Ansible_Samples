@@ -1,0 +1,98 @@
+--
+- name: Transfer files over SSH/SCP
+  hosts: localhost
+  gather_facts: false
+  # use this command to run:  ansible-playbook transfer_qbitdownloads.yml --ask-vault-pass ##########
+  # Prompt user for runtime variables
+  vars_prompt:
+
+    - name: ssh_host
+      prompt: "Enter remote SSH host or IP address"
+      private: false
+
+    - name: source_subdir
+      prompt: "Enter local Downloads subdirectory name"
+      private: false
+
+    - name: target_subdir
+      prompt: "Enter remote target directory name under /mnt/VOL2"
+      private: false
+
+  vars:
+
+    # Local source directory
+    local_source_dir: "/home/mark/Downloads/{{ source_subdir }}"
+
+    # SSH username
+    ssh_user: "mark"
+
+    # Remote destination directory
+    remote_target_dir: "/mnt/VOL2/{{ target_subdir }}"
+
+  tasks:
+
+    # Display selected settings
+    - name: Show selected configuration
+      ansible.builtin.debug:
+        msg:
+          - "SSH Host: {{ ssh_host }}"
+          - "Local Source: {{ local_source_dir }}"
+          - "Remote Destination: {{ remote_target_dir }}"
+
+    # Verify local source directory exists
+    - name: Verify local source directory exists
+      ansible.builtin.stat:
+        path: "{{ local_source_dir }}"
+      register: source_dir
+
+    # Fail if directory does not exist
+    - name: Fail if source directory does not exist
+      ansible.builtin.fail:
+        msg: "Source directory does not exist: {{ local_source_dir }}"
+      when: not source_dir.stat.exists
+
+    # Find all files recursively
+    - name: Find all files
+      ansible.builtin.find:
+        paths: "{{ local_source_dir }}"
+        recurse: true
+        file_type: file
+      register: files_to_copy
+
+    # Create remote destination directory
+    - name: Create remote target directory
+      ansible.builtin.shell: |
+        ssh {{ ssh_user }}@{{ ssh_host }} \
+        "mkdir -p '{{ remote_target_dir }}'"
+
+    # Transfer files using SCP
+    - name: Copy files using SCP
+      ansible.builtin.shell: |
+        scp "{{ item.path }}" \
+        {{ ssh_user }}@{{ ssh_host }}:"{{ remote_target_dir }}/"
+      loop: "{{ files_to_copy.files }}"
+      register: scp_results
+
+    # Show transfer results
+    - name: Show SCP results
+      ansible.builtin.debug:
+        msg:
+          - "FILE: {{ item.item.path }}"
+          - "RC: {{ item.rc }}"
+      loop: "{{ scp_results.results }}"
+
+    # Delete local files after successful transfer
+    - name: Delete local files after successful transfer
+      ansible.builtin.file:
+        path: "{{ item.item.path }}"
+        state: absent
+      loop: "{{ scp_results.results }}"
+      when: item.rc == 0
+
+    # Final completion banner
+    - name: Print completion banner
+      ansible.builtin.debug:
+        msg:
+          - "========================================="
+          - "     All File transfers complete"
+          - "========================================="
