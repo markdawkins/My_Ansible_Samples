@@ -1,0 +1,110 @@
+
+#######################################################
+## 1. Below is an Ansible playbook that installs VSTFP server and EMBY can be modified to :
+## 2. Prompts for the target Ubuntu server IP address.
+## 3. Connects via SSH.
+## 4. Installs Emby Server.
+## 5. Installs VSFTPD FTP Server.
+## 6. Starts and enables both services.
+## 7. Waits 15 seconds.
+## 8. Prints a completion banner.
+################################################
+
+---
+- name: Install Emby Server and VSFTPD on Ubuntu
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  vars_prompt:
+    - name: remote_server_ip
+      prompt: "Enter the IP address of the Ubuntu server"
+      private: no
+
+  pre_tasks:
+    - name: Dynamically add target host
+      add_host:
+        name: "{{ remote_server_ip }}"
+        groups: target_server
+
+- name: Configure Ubuntu Media Server
+  hosts: target_server
+  become: yes
+  gather_facts: yes
+
+  tasks:
+
+    #####################################################################
+    # Install prerequisites
+    #####################################################################
+
+    - name: Install required packages
+      apt:
+        name:
+          - wget
+          - apt-transport-https
+          - gnupg
+        state: present
+        update_cache: yes
+
+    #####################################################################
+    # Install Emby Server
+    #####################################################################
+
+    - name: Download Emby repository package
+      get_url:
+        url: https://github.com/MediaBrowser/Emby.Releases/releases/latest/download/emby-server-deb_amd64.deb
+        dest: /tmp/emby-server.deb
+        mode: '0644'
+
+    - name: Install Emby Server package
+      apt:
+        deb: /tmp/emby-server.deb
+
+    #####################################################################
+    # Install VSFTPD
+    #####################################################################
+
+    - name: Install VSFTPD FTP server
+      apt:
+        name: vsftpd
+        state: present
+        update_cache: yes
+
+    #####################################################################
+    # Start and enable services
+    #####################################################################
+
+    - name: Enable and start Emby Server
+      service:
+        name: emby-server
+        state: started
+        enabled: yes
+
+    - name: Enable and start VSFTPD
+      service:
+        name: vsftpd
+        state: started
+        enabled: yes
+
+    #####################################################################
+    # Pause before completion message
+    #####################################################################
+
+    - name: Wait 15 seconds
+      pause:
+        seconds: 15
+
+    #####################################################################
+    # Completion Banner
+    #####################################################################
+
+    - name: Display completion banner
+      debug:
+        msg:
+          - "======================================================"
+          - " The server installation tasks are completed "
+          - " Emby Server Installed and Started"
+          - " VSFTPD Installed and Started"
+          - " Target Server: {{ inventory_hostname }}"
+          - "======================================================"
